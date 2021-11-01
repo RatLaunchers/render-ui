@@ -1,28 +1,34 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <renderer></renderer>
+    <div>
+      <data-input v-model="fireLocation.x" name="Fire location x"></data-input>
+      <data-input v-model="fireLocation.y" name="Fire location y"></data-input>
+      <data-input v-model="wind.velocity" name="Wind velocity"></data-input>
+      <data-input v-model="wind.angle" name="Wind angle"></data-input>
+      <data-input v-model="simulationSpeed" name="Simulation speed"></data-input>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import DataInput from "./components/DataInput.vue";
+import Renderer from "./components/Renderer.vue";
 
 export default {
-  name: 'App',
+  data() {
+    return {
+      fireLocation: { x: 0, y: 0 },
+      wind: { velocity: 0, angle: 0 },
+      simulationSpeed: 1,
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    DataInput,
+    Renderer,
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
