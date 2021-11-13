@@ -1,6 +1,6 @@
 <template>
   <div>
-    <renderer :color="data.sample.colorBase"></renderer>
+    <renderer :color="data.sample.colorBaseTwo"></renderer>
     <div>
       <data-input v-model="fireLocation.x" name="Fire location x"></data-input>
       <data-input v-model="fireLocation.y" name="Fire location y"></data-input>
