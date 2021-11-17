@@ -25,11 +25,11 @@ export default {
   mounted: function () {
     document.getElementById("renderer").appendChild(app.view);
 
-    for (let x = 0; x < this.color.length; x++) {
-      for (let y = 0; y < this.color[0].length; y++) {
+    for (let x = 0; x < this.color[0].length; x++) {
+      for (let y = 0; y < this.color.length; y++) {
         app.stage.addChild(
           new PIXI.Graphics()
-            .beginFill(this.color[x][y])
+            .beginFill(this.color[y][x])
             .drawRect(
               x * UNITDIMENSION,
               y * UNITDIMENSION,
