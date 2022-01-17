@@ -1,6 +1,6 @@
 <template>
   <div>
-    <renderer :color="data.sample.colorBaseTwo"></renderer>
+    <renderer :color="data.sample.color" ref="renderer"></renderer>
     <div>
       <data-input v-model="fireLocation.x" name="Fire location x"></data-input>
       <data-input v-model="fireLocation.y" name="Fire location y"></data-input>
@@ -10,6 +10,17 @@
         v-model="simulationSpeed"
         name="Simulation speed"
       ></data-input>
+      <button
+        @click="
+          $refs.renderer.setGridColor(
+            Math.floor(Math.random() * 133),
+            Math.floor(Math.random() * 100),
+            Math.floor(Math.random() * 16777215)
+          )
+        "
+      >
+        TEST
+      </button>
     </div>
   </div>
 </template>
