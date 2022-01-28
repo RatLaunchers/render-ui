@@ -1,6 +1,10 @@
 <template>
   <div>
-    <renderer :color="data.sample.color" ref="renderer"></renderer>
+    <renderer
+      :color="data.sample.color"
+      :elevation="data.sample.elevation"
+      ref="renderer"
+    ></renderer>
     <div>
       <data-input v-model="fireLocation.x" name="Fire location x"></data-input>
       <data-input v-model="fireLocation.y" name="Fire location y"></data-input>
@@ -18,9 +22,8 @@
             Math.floor(Math.random() * 16777215)
           )
         "
-      >
-        TEST
-      </button>
+      >Teest</button>
+      <button @click="$refs.renderer.showElevation()">elevation</button>
     </div>
   </div>
 </template>

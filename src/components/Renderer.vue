@@ -41,7 +41,7 @@ for (let y = 0; y < GRIDY; y++) {
   }
 }
 
-//temp
+// permenant?
 const texture = PIXI.Texture.from("/map1.png");
 const image = new PIXI.Sprite(texture);
 
@@ -56,8 +56,12 @@ export default {
   props: {
     data: Array,
     color: Array,
-    images: Array,
+    elevation: Array,
   },
+  data: function () {
+    return {};
+  },
+  computed: {},
   methods: {
     test: function () {
       console.log("tset");
@@ -73,11 +77,42 @@ export default {
         );
       app.renderer.render(grid);
     },
-    setGridColor: function (x, y, color) {
+    showElevation: function () {
+      let max = this.elevation[0][0];
+      for (let y = 0; y < this.elevation.length; y++) {
+        for (let x = 0; x < this.elevation[y].length; x++) {
+          if (this.elevation[y][x] > max) max = this.elevation[y][x];
+        }
+      }
+      let min = this.elevation[0][0];
+      for (let y = 0; y < this.elevation.length; y++) {
+        for (let x = 0; x < this.elevation[y].length; x++) {
+          if (this.elevation[y][x] < min) min = this.elevation[y][x];
+        }
+      }
+      const elevationDiff = max - min;
+      console.log(max, min, elevationDiff);
+
+      // places every value on a green gradient to visualize, must keep values above 16 lol because idk how to do this better
+      for (let y = 0; y < this.elevation.length; y++) {
+        for (let x = 0; x < this.elevation[y].length; x++) {
+          let percent = (this.elevation[y][x] - min) / elevationDiff;
+          let color = Number(
+            `0x${(Math.floor(168 - 152 * percent)).toString(16)}${(Math.floor(
+              255 -
+              166 * percent)
+            ).toString(16)}${(Math.floor(166 - 150 * percent)).toString(16)}`
+          );
+          this.setGridColorNR(x, y, color);
+        }
+      }
+      this.renderGrid();
+    },
+    setGridColor: function (x, y, color, alpha=1) {
       console.log("tset");
-      gridObjects[x][y]
+      gridObjects[y][x]
         .clear()
-        .beginFill(color, 1)
+        .beginFill(color, alpha)
         .lineStyle(1, 0x000000, 1, 0.5)
         .drawRect(
           x * UNITDIMENSION,
@@ -85,6 +120,22 @@ export default {
           UNITDIMENSION,
           UNITDIMENSION
         );
+      app.renderer.render(grid);
+    },
+    setGridColorNR: function (x, y, color, alpha=1) {
+      console.log("tset");
+      gridObjects[y][x]
+        .clear()
+        .beginFill(color, alpha)
+        .lineStyle(1, 0x000000, 1, 0.5)
+        .drawRect(
+          x * UNITDIMENSION,
+          y * UNITDIMENSION,
+          UNITDIMENSION,
+          UNITDIMENSION
+        );
+    },
+    renderGrid: function () {
       app.renderer.render(grid);
     },
   },
