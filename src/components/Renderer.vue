@@ -63,20 +63,6 @@ export default {
   },
   computed: {},
   methods: {
-    test: function () {
-      console.log("tset");
-      gridObjects[5][5]
-        .clear()
-        .beginFill(Math.floor(Math.random() * 16777215), 1)
-        .lineStyle(1, 0x000000, 1, 0.5)
-        .drawRect(
-          5 * UNITDIMENSION,
-          5 * UNITDIMENSION,
-          UNITDIMENSION,
-          UNITDIMENSION
-        );
-      app.renderer.render(grid);
-    },
     showElevation: function () {
       let max = this.elevation[0][0];
       for (let y = 0; y < this.elevation.length; y++) {
@@ -98,18 +84,16 @@ export default {
         for (let x = 0; x < this.elevation[y].length; x++) {
           let percent = (this.elevation[y][x] - min) / elevationDiff;
           let color = Number(
-            `0x${(Math.floor(168 - 152 * percent)).toString(16)}${(Math.floor(
-              255 -
-              166 * percent)
-            ).toString(16)}${(Math.floor(166 - 150 * percent)).toString(16)}`
+            `0x${Math.floor(168 - 152 * percent).toString(16)}${Math.floor(
+              255 - 166 * percent
+            ).toString(16)}${Math.floor(166 - 150 * percent).toString(16)}`
           );
           this.setGridColorNR(x, y, color);
         }
       }
       this.renderGrid();
     },
-    setGridColor: function (x, y, color, alpha=1) {
-      console.log("tset");
+    setGridColor: function (x, y, color, alpha = 1) {
       gridObjects[y][x]
         .clear()
         .beginFill(color, alpha)
@@ -122,8 +106,7 @@ export default {
         );
       app.renderer.render(grid);
     },
-    setGridColorNR: function (x, y, color, alpha=1) {
-      console.log("tset");
+    setGridColorNR: function (x, y, color, alpha = 1) {
       gridObjects[y][x]
         .clear()
         .beginFill(color, alpha)
