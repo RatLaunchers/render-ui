@@ -1,8 +1,8 @@
 <template>
   <div>
     <renderer
-      :color="data.sample.color"
-      :elevation="data.sample.elevation"
+      :elevation="data.sample.elevation2"
+      :data="data.sample.data2"
       ref="renderer"
     ></renderer>
     <div>
@@ -14,16 +14,8 @@
         v-model="simulationSpeed"
         name="Simulation speed"
       ></data-input>
-      <button
-        @click="
-          $refs.renderer.setGridColor(
-            Math.floor(Math.random() * 133),
-            Math.floor(Math.random() * 100),
-            Math.floor(Math.random() * 16777215)
-          )
-        "
-      >Teest</button>
       <button @click="$refs.renderer.showElevation()">elevation</button>
+      <button @click="$refs.renderer.showDryness()">dryness</button>
     </div>
   </div>
 </template>

@@ -42,7 +42,7 @@ for (let y = 0; y < GRIDY; y++) {
 }
 
 // permenant?
-const texture = PIXI.Texture.from("/map1.png");
+const texture = PIXI.Texture.from("/map2.png");
 const image = new PIXI.Sprite(texture);
 
 image.anchor.x = 0;
@@ -55,7 +55,6 @@ image.height = UNITDIMENSION * GRIDY;
 export default {
   props: {
     data: Array,
-    color: Array,
     elevation: Array,
   },
   data: function () {
@@ -89,6 +88,36 @@ export default {
             ).toString(16)}${Math.floor(166 - 150 * percent).toString(16)}`
           );
           this.setGridColorNR(x, y, color);
+        }
+      }
+      this.renderGrid();
+    },
+    showDryness: function () {
+      let colorMap = (dryness) => {
+        switch (dryness) {
+          case 0:
+            return [0, 0];
+          case 30:
+            return [0x6e532d, 1];
+          case 50:
+            return [0xc7be5d, 1];
+          case 80:
+            return [0x95bd3e, 1];
+          case 100:
+            return [0x5abd3e, 1];
+          case 120:
+            return [0x35c219, 1];
+          case 150:
+            return [0x11ff00, 1];
+
+          default:
+            return [0, 0];
+        }
+      };
+      for (let y = 0; y < this.data.length; y++) {
+        for (let x = 0; x < this.data[y].length; x++) {
+          let color = colorMap(this.data[y][x][0]);
+          this.setGridColorNR(x, y, color[0], color[1]);
         }
       }
       this.renderGrid();
